@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuthStore } from '../stores/useAuthStore';
 
 const customAxios = axios.create({
-  baseURL: 'https://ajouclubserver.shop',
+  baseURL: 'https://aclubserver.shop',
   withCredentials: true, // RT 쿠키 자동 포함
 });
 
@@ -37,7 +37,7 @@ customAxios.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshRes = await axios.post(
-          'https://ajouclubserver.shop/api/auth/refresh',
+          'https://aclubserver.shop/api/auth/refresh',
           {},
           { withCredentials: true }
         );

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuthStore } from '../stores/useAuthStore';
 
 const customAxios = axios.create({
-  baseURL: 'https://ajouclubserver.shop', 
+  baseURL: 'https://aclubserver.shop', 
   withCredentials: true, 
 });
 
