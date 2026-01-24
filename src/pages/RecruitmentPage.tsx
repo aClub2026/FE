@@ -1,4 +1,4 @@
-// src/pages/RecruitmentPage.tsx
+﻿// src/pages/RecruitmentPage.tsx
 
 import { useState, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; 
@@ -147,6 +147,7 @@ const RecruitmentPage = () => {
           <span className="text-sm text-gray-700 font-medium">{sortOption}</span>
           <SortIcon className="w-4 h-4 -rotate-90 text-gray-700" />
         </button>
+        {/*
         <button 
           className="flex items-center gap-1"
           onClick={() => navigate('/recruitment/filter', { state: { filters: activeFilters } })}
@@ -156,8 +157,10 @@ const RecruitmentPage = () => {
             필터 {filterCount > 0 && `(${filterCount})`}
           </span>
         </button>
+        */}
       </div>
 
+      {/*
       {filterCount > 0 && (
         <div className="flex gap-2 px-4 pb-3 overflow-x-auto scrollbar-hide border-b border-gray-100">
           {filterChips.map((label) => (
@@ -170,6 +173,7 @@ const RecruitmentPage = () => {
           ))}
         </div>
       )}
+      */}
 
       <main className="flex-grow px-4 pt-4">
         {sortedAndFilteredPosts.length > 0 ? (
