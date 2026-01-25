@@ -1,4 +1,4 @@
-// src/components/club-detail/ClubRecruitmentList.tsx
+﻿// src/components/club-detail/ClubRecruitmentList.tsx
 
 import { useNavigate } from 'react-router-dom';
 import RecruitmentListItem from '../common/Card/Card_recruitment _listitem';
@@ -15,6 +15,7 @@ const ClubRecruitmentList = ({ clubId, isAdmin = false }: ClubRecruitmentListPro
   const navigate = useNavigate();
   
   const { data: recruitments, isLoading, error } = useRecruitmentDetail(clubId);
+  const sortedRecruitments = [...(recruitments ?? [])].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
   // 로딩 상태 처리
   if (isLoading) return <p className="p-4 text-center">로딩 중...</p>;
@@ -42,12 +43,12 @@ const ClubRecruitmentList = ({ clubId, isAdmin = false }: ClubRecruitmentListPro
 
       {/* 모집 공고 리스트 */}
       <div className="divide-y divide-gray-100">
-        {!recruitments || recruitments.length === 0 ? (
+        {sortedRecruitments.length === 0 ? (
           <div className="py-10 text-center text-gray-300 text-base font-medium leading-[1.35] tracking-[-0.03em]">
             등록된 모집 공고가 없습니다.
           </div>
         ) : (
-          recruitments.map((recruitment) => (
+          sortedRecruitments.map((recruitment) => (
             <div
               key={recruitment.recruitmentId}
               onClick={() => navigate(`/recruitments/${recruitment.recruitmentId}`)} 
