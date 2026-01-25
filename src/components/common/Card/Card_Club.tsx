@@ -14,7 +14,7 @@ const ClubCard = ({ club, variant = 'home' }: ClubCardProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/clubs/${clubId}`); 
+    navigate(`/clubs/${clubId}`, { state: { clubType } }); 
   };
 
   const isExplore = variant === 'explore';
