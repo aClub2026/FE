@@ -1,7 +1,7 @@
 // src/pages/ClubDetailPage.tsx
 
 import { useState } from 'react';
-import { useParams} from 'react-router-dom'; 
+import { useParams, useLocation } from 'react-router-dom'; 
 import Header from '../components/common/Header';
 import ClubInfoSection from '../components/club-detail/ClubInfoSection';
 import ClubDetailTab from '../components/club-detail/ClubDetailTab';
@@ -10,15 +10,18 @@ import ClubDescription from '../components/club-detail/ClubDescription';
 import { useClubDetail } from '../Hooks/useClubDetails'; 
 import { useClubActivityImages } from '../Hooks/useClubActivityImages'; 
 import { useAuthStore } from '../stores/useAuthStore'; // AuthStore import
+import type { ClubType } from '../types/club';
 
 const ClubDetailPage = () => {
   const { clubId } = useParams<{ clubId: string }>(); 
+  const location = useLocation();
   const [selectedTab, setSelectedTab] = useState<'모집공고' | '동아리 소개'>('모집공고');
   
   //const navigate = useNavigate(); // 네비게이션
   const user = useAuthStore((state) => state.user); 
 
   const numericClubId = Number(clubId); 
+  const clubType = (location.state as { clubType?: ClubType } | undefined)?.clubType;
 
   // 관리자 권한 확인 로직 (JWT payload 기반)
   // 유저가 있고 유저의 managedClubIds 배열에 현재 페이지의 numericClubId가 포함되어 있으면 관리자
@@ -28,7 +31,7 @@ const ClubDetailPage = () => {
     return <div className="p-4 text-red-500">유효하지 않은 접근입니다.</div>;
   }
 
-  const { data: club, isLoading: isClubLoading, isError: isClubError, error: clubError } = useClubDetail(numericClubId);
+  const { data: club, isLoading: isClubLoading, isError: isClubError, error: clubError } = useClubDetail(numericClubId, clubType);
   const { data: activityImages, isLoading: isImagesLoading } = useClubActivityImages(numericClubId); 
 
   const isLoading = isClubLoading || isImagesLoading; 

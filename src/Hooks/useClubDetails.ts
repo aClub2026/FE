@@ -29,7 +29,23 @@ const mapApiDataToClub = (data: ApiClubData): Club => {
   };
 };
 
-const fetchClubDetail = async (clubId: number): Promise<Club> => {
+const fetchClubDetail = async (clubId: number, clubType?: ClubType): Promise<Club> => {
+  if (clubType === '중앙동아리') {
+    const res = await axios.get<ApiResponse<ApiClubData>>(`/api/club/central/${clubId}`);
+    if (res.data.status === 200) {
+      return mapApiDataToClub(res.data.data);
+    }
+    throw new Error(res.data.message || 'Failed to fetch central club details');
+  }
+
+  if (clubType === '소학회') {
+    const res = await axios.get<ApiResponse<ApiClubData>>(`/api/club/academic/${clubId}`);
+    if (res.data.status === 200) {
+      return mapApiDataToClub(res.data.data);
+    }
+    throw new Error(res.data.message || 'Failed to fetch academic club details');
+  }
+
   try {
     // 1. 중앙동아리 API(/api/club/central/{clubId})
     const res = await axios.get<ApiResponse<ApiClubData>>(`/api/club/central/${clubId}`);
@@ -57,10 +73,10 @@ const fetchClubDetail = async (clubId: number): Promise<Club> => {
   throw new Error('Failed to fetch club details');
 };
 
-export const useClubDetail = (clubId: number): UseQueryResult<Club, Error> => {
+export const useClubDetail = (clubId: number, clubType?: ClubType): UseQueryResult<Club, Error> => {
   return useQuery<Club, Error>({
-    queryKey: ['clubDetail', clubId],
-    queryFn: () => fetchClubDetail(clubId),
+    queryKey: ['clubDetail', clubId, clubType],
+    queryFn: () => fetchClubDetail(clubId, clubType),
     enabled: !!clubId,
     retry: false, 
   });

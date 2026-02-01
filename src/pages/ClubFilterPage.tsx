@@ -1,4 +1,4 @@
-// src/pages/ClubFilterPage.tsx
+﻿// src/pages/ClubFilterPage.tsx
 
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -171,16 +171,18 @@ const ClubFilterPage = () => {
         </section>
 
         {/* 학과 (API: department) */}
-        <section className="space-y-3">
-          <SectionTitle title="어떤 학과이신가요?" />
-          <SectionLabel label="가입 가능한 소학회를 찾아드릴게요!" />
-          <SelectField
-            options={departments}
-            value={selectedDepartment || null}
-            onChange={(val) => setSelectedDepartment(val)}
-            placeholder="전체"
-          />
-        </section>
+        {selectedType !== '중앙동아리' && (
+          <section className="space-y-3">
+            <SectionTitle title="어떤 학과이신가요?" />
+            <SectionLabel label="가입 가능한 소학회를 찾아드릴게요!" />
+            <SelectField
+              options={departments}
+              value={selectedDepartment || null}
+              onChange={(val) => setSelectedDepartment(val)}
+              placeholder="전체"
+            />
+          </section>
+        )}
 
         {/* 모집 여부 (API: recruiting) */}
         <section className="space-y-3">
