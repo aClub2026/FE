@@ -54,7 +54,9 @@ jobs:
           exit 1
 
       - name: Notify on failure (Discord)
-        if: ${{ failure() && secrets.DISCORD_WEBHOOK_URL != '' }}
+        if: ${{ failure() && env.DISCORD_WEBHOOK_URL != '' }}
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -H "Content-Type: application/json" \
           -d '{
