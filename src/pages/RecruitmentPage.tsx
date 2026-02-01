@@ -9,14 +9,12 @@ import BottomSheet from '../components/explore/BottomSheet';
 import RecruitmentCard from '../components/common/Card/Card_recruitment';
 import useRecruitments from '../Hooks/useRecruitments';
 import type { Recruitment } from '../types/recruit';
-import FilterChip from '../components/ui/Chip/Chip_filter'; 
 
 import { useAuthStore } from '../stores/useAuthStore';
 import { useMyPageData } from '../Hooks/useMypageData';
 
 
 import SortIcon from '../assets/icon/ic-arrow-down-gray-24.svg?react';
-import FilterIcon from '../assets/icon/icn_filter_16.svg?react';
 
 type SortOption = '최근 게시순' | '저장순' | '마감 임박순';
 
@@ -51,25 +49,6 @@ const RecruitmentPage = () => {
   const handleSelectSort = (option: SortOption) => {
     setSortOption(option);
     setIsBottomSheetOpen(false);
-  };
-
-
-  const filterChips = [
-    ...activeFilters.categories, 
-    ...activeFilters.types, 
-    ...activeFilters.statuses,
-    ...(activeFilters.department && activeFilters.department !== '전체' ? [activeFilters.department] : [])
-  ];
-  const filterCount = filterChips.length;
-
-
-  const handleRemoveFilter = (chipLabel: string) => {
-    setActiveFilters((prev: any) => ({
-      categories: prev.categories.filter((c: string) => c !== chipLabel),
-      types: prev.types.filter((t: string) => t !== chipLabel),
-      statuses: prev.statuses.filter((s: string) => s !== chipLabel),
-      department: prev.department === chipLabel ? '' : prev.department,
-    }));
   };
 
 
