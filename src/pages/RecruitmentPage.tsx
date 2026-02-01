@@ -37,7 +37,7 @@ const RecruitmentPage = () => {
   const { favorites, isLoading: isFavoritesLoading } = useMyPageData();
 
 
-  const [activeFilters, setActiveFilters] = useState(location.state?.filters || {
+  const [activeFilters] = useState(location.state?.filters || {
     categories: [],
     types: [],
     statuses: [],
