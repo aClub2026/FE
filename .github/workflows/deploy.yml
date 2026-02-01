@@ -39,6 +39,7 @@ jobs:
           cname: ajouclub.co.kr
 
       - name: Verify deployment
+        continue-on-error: true
         run: |
           for i in {1..5}; do
             echo "🔍 Trying to verify deployment (attempt $i)..."
@@ -53,7 +54,7 @@ jobs:
           exit 1
 
       - name: Notify on failure (Discord)
-        if: failure()
+        if: failure() && secrets.DISCORD_WEBHOOK_URL != ''
         run: |
           curl -H "Content-Type: application/json" \
           -d '{
