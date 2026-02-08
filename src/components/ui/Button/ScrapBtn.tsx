@@ -20,12 +20,12 @@ const ScrapBtn = ({ count, isActive = false, onClick }: ScrapBtnProps) => {
         flex items-center justify-center gap-[2px] w-[76px] h-[48px] px-3 py-2.5 rounded-[8px]
         transition-colors
         ${isActive
-          ? 'bg-blue-400 text-white' // 활성화 상태 스타일
-          : 'bg-gray-50 text-gray-600' // 기본 상태 스타일
+          ? 'bg-blue-400 text-white' // 기본상태
+          : 'bg-gray-200 text-gray-800 border border-gray-300' // 기본 형태 수정
         }
       `}
     >
-      {/* 2. isActive 값에 따라 다른 아이콘 컴포넌트를 렌더링. */}
+      {/* 2. isActive 값에 따른 버튼 수정 */}
       {isActive 
         ? <ScrapIconActive className="w-6 h-6" />
         : <ScrapIconDefault className="w-6 h-6" />
