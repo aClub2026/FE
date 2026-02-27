@@ -30,8 +30,13 @@ const RecruitingSection = () => {
    }));
  }, [posts, favorites, isLoggedIn]);
 
- const totalPages = Math.ceil(postsWithUserScrapStatus.length / POSTS_PER_PAGE);
- const paginatedPosts = postsWithUserScrapStatus.slice(
+ const recruitingPosts = useMemo(
+   () => postsWithUserScrapStatus.filter((post) => post.status !== 'end'),
+   [postsWithUserScrapStatus]
+ );
+
+ const totalPages = Math.ceil(recruitingPosts.length / POSTS_PER_PAGE);
+ const paginatedPosts = recruitingPosts.slice(
    (currentPage - 1) * POSTS_PER_PAGE,
    currentPage * POSTS_PER_PAGE
  );
