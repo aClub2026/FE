@@ -164,6 +164,7 @@ const RecruitmentPage = () => {
                 clubId={post.clubId}
                 images={post.images} 
                 title={post.title}
+                type={post.type}
                 status={post.status} 
                 dDay={post.dDay}
                 viewCount={post.viewCount} 

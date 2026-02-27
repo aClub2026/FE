@@ -10,12 +10,14 @@ import ScrapIconActive from '../../../assets/icon/ScrapBtn_activated.svg?react';
 import { addToFavorites, removeFromFavorites } from '../../../api/recruitment';
 import DefaultImage from '../../../assets/img/Default_images.png';
 import { useAuthStore } from '../../../stores/useAuthStore';
+import type { RecruitmentType } from '../../../types/recruit';
 
 interface RecruitmentCardProps {
   recruitmentId: number;
   clubId: number;
   images: string[];
   title: string;
+  type: RecruitmentType;
   status: 'regular' | 'd-day' | 'end';
   dDay?: number;
   viewCount?: number;
@@ -40,6 +42,7 @@ const RecruitmentCard = ({
   recruitmentId,
   //clubId,
   title,
+  type,
   status,
   dDay,
   viewCount,
@@ -130,7 +133,7 @@ const RecruitmentCard = ({
 
       {/* 모집 상태 뱃지 */}
       <div className="mt-1 flex justify-start">
-        <PeriodChip status={status} dDay={dDay} size="small" />
+        <PeriodChip status={status} recruitmentType={type} dDay={dDay} size="small" />
       </div>
 
       {/* 조회수 & 저장수 */}

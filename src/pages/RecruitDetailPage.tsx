@@ -117,6 +117,7 @@ const RecruitmentDetailPage = () => {
 
       <RecruitmentMetaSection
         title={recruitment.title}
+        type={recruitment.type}
         status={recruitment.status}
         dDay={recruitment.dDay}
         createdAt={recruitment.createdAt}

@@ -1,15 +1,16 @@
-//import React from 'react';
+import type { RecruitmentType } from '../../../types/recruit';
 
 type ChipStatus = 'regular' | 'd-day' | 'end';
 type ChipSize = 'small' | 'medium' | 'large';
 
 interface PeriodChipProps {
   status: ChipStatus;
-  dDay?: number; 
-  size?: ChipSize; //  (small | medium | large)
+  recruitmentType?: RecruitmentType;
+  dDay?: number;
+  size?: ChipSize;
 }
 
-const PeriodChip = ({ status, dDay, size = 'small' }: PeriodChipProps) => {
+const PeriodChip = ({ status, recruitmentType, dDay, size = 'small' }: PeriodChipProps) => {
   const baseStyle = `
     inline-flex w-auto items-center justify-center
     h-[20px] rounded-[4px]
@@ -44,7 +45,7 @@ const PeriodChip = ({ status, dDay, size = 'small' }: PeriodChipProps) => {
       default:
         return {
           style: 'bg-blue-50 text-blue-400',
-          text: '상시모집',
+          text: recruitmentType ?? '상시모집',
         };
     }
   };
@@ -59,4 +60,4 @@ const PeriodChip = ({ status, dDay, size = 'small' }: PeriodChipProps) => {
   );
 };
 
-export default PeriodChip
+export default PeriodChip;
