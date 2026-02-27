@@ -57,6 +57,7 @@ const ClubRecruitmentList = ({ clubId, isAdmin = false }: ClubRecruitmentListPro
               <RecruitmentListItem
                 recruitmentId={recruitment.recruitmentId} 
                 recruitmentStatus={recruitment.status}
+                recruitmentType={recruitment.type}
                 dDay={recruitment.dDay}
                 title={recruitment.title}
                 saveCount={recruitment.scrapCount} 

@@ -3,9 +3,11 @@
 //import React from 'react';
 import PeriodChip from '../ui/Chip/Chip_period';
 import { formatDate } from '../../utils/date';
+import type { RecruitmentType } from '../../types/recruit';
 
 interface RecruitmentMetaSectionProps {
   title: string;
+  type: RecruitmentType;
   status: 'regular' | 'd-day' | 'end';
   dDay?: number;
   createdAt: string; // ISO 형식 문자열
@@ -13,6 +15,7 @@ interface RecruitmentMetaSectionProps {
 
 const RecruitmentMetaSection = ({
   title,
+  type,
   status,
   dDay,
   createdAt,
@@ -21,7 +24,7 @@ const RecruitmentMetaSection = ({
     <section className="px-4 pt-6 pb-4 bg-white">
       {/* 모집 상태 뱃지 */}
       <div className="mb-2">
-        <PeriodChip status={status} dDay={dDay} size="large" />
+        <PeriodChip status={status} recruitmentType={type} dDay={dDay} size="large" />
       </div>
 
       {/* 모집공고 제목 */}
