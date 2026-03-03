@@ -25,7 +25,6 @@ const SectionLabel = ({ label }: { label: string }) => (
 //  동아리 필터용 선택지
 const clubTypes = ['중앙동아리', '소학회']; 
 const categories = ['스포츠', '학술', '종교', '문화/예술', '창업', '사교', '봉사'];
-const recruitingOptions = ['모집중'];
 const departments = [
   '전체',
   '소프트웨어융합학과',
@@ -89,13 +88,11 @@ const ClubFilterPage = () => {
 
   const [selectedType, setSelectedType] = useState<string | null>(initialFilters.type || null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(initialFilters.category || null);
-  const [selectedRecruiting, setSelectedRecruiting] = useState<boolean>(initialFilters.isRecruiting || false);
   const [selectedDepartment, setSelectedDepartment] = useState<string>(initialFilters.department || '');
 
   const handleReset = () => {
     setSelectedType(null);
     setSelectedCategory(null);
-    setSelectedRecruiting(false);
     setSelectedDepartment('');
   };
 
@@ -106,7 +103,6 @@ const ClubFilterPage = () => {
     if (selectedType) filters.type = selectedType;
     if (selectedCategory) filters.category = selectedCategory;
     if (selectedDepartment && selectedDepartment !== '전체') filters.department = selectedDepartment;
-    if (selectedRecruiting) filters.isRecruiting = true;
 
     navigate('/clubs', {
       state: { filters },
@@ -118,7 +114,6 @@ const ClubFilterPage = () => {
     let count = 0;
     if (selectedType) count++;
     if (selectedCategory) count++;
-    if (selectedRecruiting) count++;
     if (selectedDepartment && selectedDepartment !== '전체') count++;
     return count;
   };
@@ -184,21 +179,6 @@ const ClubFilterPage = () => {
           </section>
         )}
 
-        {/* 모집 여부 (API: recruiting) */}
-        <section className="space-y-3">
-          <SectionTitle title="모집 여부" />
-          <div className="flex flex-wrap gap-2">
-            {recruitingOptions.map(opt => (
-              <PrimaryBtn
-                key={opt}
-                isActive={selectedRecruiting}
-                onClick={() => setSelectedRecruiting(!selectedRecruiting)}
-              >
-                {opt}
-              </PrimaryBtn>
-            ))}
-          </div>
-        </section>
       </main>
 
       {/* 하단 버튼 레이아웃 */}

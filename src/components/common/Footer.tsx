@@ -11,7 +11,7 @@ export const Footer = () => {
           본 서비스는 아주대학교 학생들이 주도하는 프로젝트로, 아주대학교 및 그의 산하 기관과는 무관합니다.
         </p>
         <p>
-          © 2025 a.Club. All rights reserved.
+          © 2026 a.Club. All rights reserved.
         </p>
       </div>
     </footer>

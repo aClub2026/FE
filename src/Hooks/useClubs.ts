@@ -12,6 +12,21 @@ interface ClubFilterParams {
   sort?: 'recent' | 'alphabetical';
 }
 
+const applyClientFilters = (clubs: ApiClubData[], filters: ClubFilterParams): ApiClubData[] => {
+  const { type, category, department, isRecruiting } = filters;
+
+  return clubs.filter((club) => {
+    if (type && club.clubType !== type) return false;
+    if (category && club.category !== category) return false;
+    if (department && department !== '전체') {
+      const target = club.recruitmentTarget ?? '';
+      if (target !== department) return false;
+    }
+    if (isRecruiting === true && club.recruiting !== true) return false;
+    return true;
+  });
+};
+
 
 const mapApiClubToClub = (apiClub: ApiClubData): Club => {
   return {
@@ -51,9 +66,19 @@ const fetchClubs = async (filters: ClubFilterParams): Promise<Club[]> => {
 
   let response;
   if (hasFilters) {
-    response = await axios.get<ApiResponse<ApiClubData[]>>('/api/club/filter', {
-      params: apiParams, 
-    });
+    try {
+      response = await axios.get<ApiResponse<ApiClubData[]>>('/api/club/filter', {
+        params: apiParams,
+      });
+    } catch {
+      // Some filter combinations intermittently fail on the filter endpoint.
+      // Fallback to /all and apply identical filtering on the client.
+      const allResponse = await axios.get<ApiResponse<ApiClubData[]>>('/api/club/all');
+      if (allResponse.data.status !== 200) {
+        throw new Error(allResponse.data.message || 'Failed to fetch clubs');
+      }
+      return applyClientFilters(allResponse.data.data, filters).map(mapApiClubToClub);
+    }
   } else {
     response = await axios.get<ApiResponse<ApiClubData[]>>('/api/club/all');
   }
