@@ -11,6 +11,7 @@ import RecruitmentDescription from '../components/recruit-detail/RecruitmentDesc
 import RecruitmentApplyBar from '../components/recruit-detail/RecruitmentApplyBar';
 
 import { useRecruitmentPost } from '../Hooks/useRecruitmentPost';
+import { useClubDetail } from '../Hooks/useClubDetails';
 import { addToFavorites, removeFromFavorites } from '../api/recruitment'; 
 import { useAuthStore } from '../stores/useAuthStore';
 import { useMyPageData } from '../Hooks/useMypageData';
@@ -30,6 +31,7 @@ const RecruitmentDetailPage = () => {
     isError,
     error,
   } = useRecruitmentPost(numericId);
+  const { data: club } = useClubDetail(recruitment?.clubId ?? 0);
   
   const { favorites, isLoading: isFavoritesLoading } = useMyPageData();
 
@@ -85,7 +87,7 @@ const RecruitmentDetailPage = () => {
 
   const handleApplyClick = () => {
     if (!recruitment?.url) {
-      alert('신청 링크가 없습니다.');
+      alert('현재 온라인 신청 링크가 없거나, 모집이 마감되었을 수 있습니다. 자세한 사항은 동아리 공지를 확인해주세요!');
       return;
     }
 
@@ -98,6 +100,7 @@ const RecruitmentDetailPage = () => {
   };
 
   const isLoading = isRecruitmentLoading || (isLoggedIn && isFavoritesLoading);
+  const recruitmentImageUrl = recruitment?.images[0] || club?.profileImageUrl || undefined;
 
   if (isLoading) {
     return <div className="p-4 text-center">로딩 중...</div>;
@@ -123,7 +126,7 @@ const RecruitmentDetailPage = () => {
         createdAt={recruitment.createdAt}
       />
 
-      <RecruitmentImage imageUrl={recruitment.images[0] || undefined} />
+      <RecruitmentImage imageUrl={recruitmentImageUrl} />
 
       <RecruitmentDescription description={recruitment.description} />
 

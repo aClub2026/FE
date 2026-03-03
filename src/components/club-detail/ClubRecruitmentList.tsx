@@ -8,10 +8,11 @@ import PrimaryBtn from '../ui/Button/PrimaryBtn';
 
 interface ClubRecruitmentListProps {
   clubId: number;
+  clubLogoUrl?: string | null;
   isAdmin?: boolean; 
 }
 
-const ClubRecruitmentList = ({ clubId, isAdmin = false }: ClubRecruitmentListProps) => {
+const ClubRecruitmentList = ({ clubId, clubLogoUrl, isAdmin = false }: ClubRecruitmentListProps) => {
   const navigate = useNavigate();
   
   const { data: recruitments, isLoading, error } = useRecruitmentDetail(clubId);
@@ -56,6 +57,7 @@ const ClubRecruitmentList = ({ clubId, isAdmin = false }: ClubRecruitmentListPro
             >
               <RecruitmentListItem
                 recruitmentId={recruitment.recruitmentId} 
+                clubLogoUrl={clubLogoUrl}
                 recruitmentStatus={recruitment.status}
                 recruitmentType={recruitment.type}
                 dDay={recruitment.dDay}

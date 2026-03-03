@@ -8,6 +8,7 @@ import BottomSheetListItem from '../components/ui/Field/List_btnsheet';
 import BottomSheet from '../components/explore/BottomSheet';
 import RecruitmentCard from '../components/common/Card/Card_recruitment';
 import useRecruitments from '../Hooks/useRecruitments';
+import useClubs from '../Hooks/useClubs';
 import type { Recruitment } from '../types/recruit';
 
 import { useAuthStore } from '../stores/useAuthStore';
@@ -29,6 +30,7 @@ const RecruitmentPage = () => {
   const navigate = useNavigate();
   const location = useLocation(); 
   const { posts, isLoading: isPostsLoading, error } = useRecruitments('all'); 
+  const { clubs: allClubs } = useClubs();
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [sortOption, setSortOption] = useState<SortOption>('최근 게시순');
 
@@ -101,6 +103,10 @@ const RecruitmentPage = () => {
     }
   }, [postsWithUserScrapStatus, sortOption, activeFilters]); // (수정)
 
+  const clubLogoById = useMemo(() => {
+    return new Map(allClubs.map((club) => [club.clubId, club.profileImageUrl]));
+  }, [allClubs]);
+
 
   // 로딩 상태
   const isLoading = isPostsLoading || (isLoggedIn && isFavoritesLoading);
@@ -162,6 +168,7 @@ const RecruitmentPage = () => {
                 key={post.recruitmentId}
                 recruitmentId={post.recruitmentId} 
                 clubId={post.clubId}
+                clubLogoUrl={clubLogoById.get(post.clubId)}
                 images={post.images} 
                 title={post.title}
                 type={post.type}

@@ -4,6 +4,7 @@ import { useState , useMemo } from 'react';
 //import { useNavigate } from 'react-router-dom';
 
 import useRecruitments from '../../Hooks/useRecruitments';
+import useClubs from '../../Hooks/useClubs';
 import RecruitmentCard from '../common/Card/Card_recruitment';
 import Pagination from '../common/Pagination';
 import SeeAllButton from '../common/SeeAllBtn';
@@ -16,6 +17,7 @@ const RecruitingSection = () => {
   //const navigate = useNavigate();
  const [currentPage, setCurrentPage] = useState(1);
  const { posts, isLoading: isPostsLoading, error } = useRecruitments('main');
+ const { clubs: allClubs } = useClubs();
  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
  const { favorites, isLoading: isFavoritesLoading } = useMyPageData();
 
@@ -41,6 +43,10 @@ const RecruitingSection = () => {
    currentPage * POSTS_PER_PAGE
  );
 
+ const clubLogoById = useMemo(() => {
+   return new Map(allClubs.map((club) => [club.clubId, club.profileImageUrl]));
+ }, [allClubs]);
+
 
  const isLoading = isPostsLoading || (isLoggedIn && isFavoritesLoading);
  if (isLoading) return <div>로딩 중...</div>;
@@ -62,6 +68,7 @@ const RecruitingSection = () => {
             key={post.recruitmentId} 
             recruitmentId={post.recruitmentId} 
             clubId={post.clubId} 
+            clubLogoUrl={clubLogoById.get(post.clubId)}
             images={post.images} 
             title={post.title}
             type={post.type}

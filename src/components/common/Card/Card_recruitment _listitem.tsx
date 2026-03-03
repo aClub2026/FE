@@ -6,6 +6,7 @@ import type { RecruitmentType } from '../../../types/recruit';
 
 interface RecruitmentListItemProps {
   recruitmentId: number;
+  clubLogoUrl?: string | null;
   recruitmentStatus: 'regular' | 'd-day' | 'end';
   recruitmentType: RecruitmentType;
   dDay?: number;
@@ -26,6 +27,7 @@ const fetchListItemThumbnail = async (recruitmentId: number): Promise<string[]> 
 
 const RecruitmentListItem = ({
   recruitmentId,
+  clubLogoUrl,
   recruitmentStatus,
   recruitmentType,
   dDay,
@@ -40,7 +42,7 @@ const RecruitmentListItem = ({
     staleTime: Infinity,
   });
 
-  const thumbnailUrl = thumbnailImages?.[0] || DefaultImage;
+  const thumbnailUrl = thumbnailImages?.[0] || clubLogoUrl || DefaultImage;
 
   return (
     <div className="flex w-full bg-white p-4 gap-3 border-b border-gray-100">

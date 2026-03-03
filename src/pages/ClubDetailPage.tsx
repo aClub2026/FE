@@ -56,7 +56,7 @@ const ClubDetailPage = () => {
       <ClubDetailTab onTabChange={setSelectedTab} />
       
       {selectedTab === '모집공고' ? (
-        <ClubRecruitmentList clubId={numericClubId} isAdmin={isAdmin} />
+        <ClubRecruitmentList clubId={numericClubId} clubLogoUrl={club.profileImageUrl} isAdmin={isAdmin} />
       ) : (
         <ClubDescription club={club} activityImages={activityImages} isAdmin={isAdmin} />
       )}

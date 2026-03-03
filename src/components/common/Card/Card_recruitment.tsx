@@ -15,6 +15,7 @@ import type { RecruitmentType } from '../../../types/recruit';
 interface RecruitmentCardProps {
   recruitmentId: number;
   clubId: number;
+  clubLogoUrl?: string | null;
   images: string[];
   title: string;
   type: RecruitmentType;
@@ -40,6 +41,7 @@ const fetchThumbnail = async (recruitmentId: number): Promise<string[]> => {
 
 const RecruitmentCard = ({
   recruitmentId,
+  clubLogoUrl,
   //clubId,
   title,
   type,
@@ -95,7 +97,7 @@ const RecruitmentCard = ({
   };
 
   // thumbnailImages from API 사용
-  const thumbnailUrl = thumbnailImages?.[0] || DefaultImage;
+  const thumbnailUrl = thumbnailImages?.[0] || clubLogoUrl || DefaultImage;
 
   return (
     <div
