@@ -32,8 +32,6 @@ const RecruitmentListItem = ({
   recruitmentType,
   dDay,
   title,
-  viewCount,
-  saveCount,
   postedDate,
 }: RecruitmentListItemProps) => {
   const { data: thumbnailImages } = useQuery<string[], Error>({
@@ -68,11 +66,7 @@ const RecruitmentListItem = ({
           </p>
         </div>
 
-        <div className="flex justify-between items-center text-xs font-normal text-gray-300 leading-[1.4] tracking-[-0.02em]">
-          <div className="flex gap-2">
-            {viewCount !== undefined && <span>조회 {viewCount}</span>}
-            <span>저장 {saveCount}</span>
-          </div>
+        <div className="flex justify-end items-center text-xs font-normal text-gray-300 leading-[1.4] tracking-[-0.02em]">
           <span>{postedDate}</span>
         </div>
       </div>

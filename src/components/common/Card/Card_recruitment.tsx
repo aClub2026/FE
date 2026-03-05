@@ -47,12 +47,11 @@ const RecruitmentCard = ({
   type,
   status,
   dDay,
-  viewCount,
   scrapCount: initialScrapCount,
   isScrappedInitially = false,
 }: RecruitmentCardProps) => {
   const [isScrapped, setIsScrapped] = useState(isScrappedInitially);
-  const [scrapCount, setScrapCount] = useState(initialScrapCount);
+  const [, setScrapCount] = useState(initialScrapCount);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -138,11 +137,6 @@ const RecruitmentCard = ({
         <PeriodChip status={status} recruitmentType={type} dDay={dDay} size="small" />
       </div>
 
-      {/* 조회수 & 저장수 */}
-      <div className="text-xs text-gray-300 font-normal leading-[1.4] tracking-[-0.02em]">
-        {viewCount !== undefined && <span>조회 {viewCount}</span>}
-        <span className="ml-2">저장 {scrapCount}</span>
-      </div>
     </div>
   );
 };
